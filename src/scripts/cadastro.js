@@ -8,8 +8,8 @@ function generateUsername() {
         var firstName = nameParts[0];
         var lastName = nameParts[nameParts.length - 1];
         firstName = firstName.toLowerCase();
-        lastName = lastName.replace(/\s/g, "");
-        var username = firstName + "_" + lastName;
+        lastName = lastName.replace(/\s/g, "").toLowerCase();
+        var username = firstName + "." + lastName;
         usernameInput.value = username;
     }
 }
@@ -27,4 +27,26 @@ function validateForm() {
     }
     
     return true;
+}
+
+function validacaoEmail(field) {
+    usuario = field.value.substring(0, field.value.indexOf("@"));
+    dominio = field.value.substring(field.value.indexOf("@")+ 1, field.value.length);
+    
+    if ((usuario.length >=1) &&
+        (dominio.length >=3) &&
+        (usuario.search("@")==-1) &&
+        (dominio.search("@")==-1) &&
+        (usuario.search(" ")==-1) &&
+        (dominio.search(" ")==-1) &&
+        (dominio.search(".")!=-1) &&
+        (dominio.indexOf(".") >=1)&&
+        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+    document.getElementById("email").innerHTML="E-mail válido";
+    alert("E-mail valido");
+    }
+    else{
+    document.getElementById("msgemail").innerHTML="<font color='red'>E-mail inválido </font>";
+    alert("E-mail invalido");
+    }
 }

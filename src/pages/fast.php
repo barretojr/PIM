@@ -18,6 +18,4 @@
 
 
 
-</body>
-
-</html>
+<?php include '../Include/footer.php' ?>

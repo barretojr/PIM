@@ -9,13 +9,6 @@
         </div>
         <?php include '../Include/nav.php'?>
     </div>
-    <article>
-        <div class="content">
-            <p> asudhausdhsauhda</p>
+    
 
-        </div>
-    </article>
-
-</body>
-
-</html>
+<?php include '../Include/footer.php' ?>

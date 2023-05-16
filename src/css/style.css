@@ -25,20 +25,17 @@
 }
 
 html {
-    font-size: 62.5%;
-    /*  CONVERTE O REM 16PX PARA 10PX */
+    font-size: 62.5%;    
 }
 
 
 body {
-
     background: linear-gradient(180deg, #EBD38A 0%, #af5c4f 100%);
     background-repeat: no-repeat;
     min-height: 100vh;
-
 }
 
-nav#container {
+nav.nav-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -47,11 +44,11 @@ nav#container {
     flex-direction: column;
 }
 
-nav#container>div {
+nav.nav-container>div {
     flex-grow: 1;
 }
 
-nav#container button {
+nav.nav-container button {
     height: 100%;
 }
 
@@ -179,7 +176,6 @@ nav#container button {
     padding: 20px;
     border-radius: 25px;
     box-shadow: 3px 3px 5px rgb(0, 0, 0, 0.5);
-
 }
 
 h1 {

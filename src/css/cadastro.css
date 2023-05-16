@@ -72,6 +72,8 @@ h1{
     border: 1px solid white;
     color: white;
     cursor:pointer;
+    
+    text-decoration: none;
 }
 .cadastrar_button{
     order: 2;

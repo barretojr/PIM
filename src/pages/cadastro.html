@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,7 @@
     <title>Cadastro - Lignum Vitae</title>
     <script src="../scripts/cadastro.js"></script>
 </head>
+
 <body>
     <!-- oi -->
     <h1>Cadastro de Usuário</h1>
@@ -18,28 +20,27 @@
         <div class="container">
             <label class="login_label">
                 <span>Nome</span>
-                <input type="text" name="nome" class="input" id="name" oninput="generateUsername()">
+                <input type="text" name="nome" class="input" id="name" placeholder="Nome e Sobrenome" oninput="generateUsername()">
             </label>
             <label class="login_label">
                 <span>Nome de usuário</span>
-                <input type="text" name="username" class="input" id="username">
+                <input type="text" name="username" class="input" placeholder="Nome de Usuário" id="username">
             </label>
             <label class="login_label">
                 <span>E-mail</span>
-                <input type="text" name="email" class="input" id="email">
+                <input type="text" name="email" class="input" id="email" onblur="validacaoEmail(f1.email)" maxlength="60">
             </label>
             <label class="login_label">
                 <span>Senha</span>
-                <input type="text" name="password" class="input" id="password">
+                <input type="password" name="password" class="input" id="password">
             </label>
             <label class="login_label">
                 <span>Confirmar senha</span>
-                <input type="text" name="passwordconfirm" class="input" id="passwordconfirm">
+                <input type="password" name="passwordconfirm" class="input" id="passwordconfirm">
             </label>
         </div>
         <div class="buttons">
-            <button type="submit" value="entrar" id="entrar" class="cancelar_button"> Cancelar
-            </button>
+            <a href="../pages/home.php" class="cadastrar_button"> Cancelar</a>
             <button type="submit" value="entrar" id="entrar" class="cadastrar_button"> Cadastrar
             </button>
         </div>

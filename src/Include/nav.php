@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 200px;">
-        <div class="n-container">
+        <div class="nav-container">
             <div>
                 <a href="../pages/home.php">
                     <button class="home_button">Home</button>
