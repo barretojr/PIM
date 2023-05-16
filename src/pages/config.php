@@ -4,7 +4,7 @@
 
 <body>
     <div class="wrapper">
-        <div class="base-white">
+        <div div class="base-white bg-white mx-auto p-4 rounded-lg shadow-sm" style="width: 40%;">
             <h1>ESTOQUE</h1>
         </div>
         <?php include '../Include/nav.php'?>

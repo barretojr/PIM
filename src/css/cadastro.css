@@ -1,66 +1,74 @@
-*{
+* {
     margin: 0;
-    padding:0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Bebas Neue', 'poppins';
 }
-.root{
+
+.root {
     --yellow: #EBD38A;
-    --red:    #AF5C4F;
-    --white:  #ffffff;
-    --black:  #000000;
+    --red: #AF5C4F;
+    --white: #ffffff;
+    --black: #000000;
 }
 
-body{
-    background: linear-gradient(180deg, #EBD38A 0% ,#af5c4f 100%);
-    background-repeat:no-repeat;
-    min-height: 100vh;   
+body {
+    background: linear-gradient(180deg, #EBD38A 0%, #af5c4f 100%);
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
-h1{
+h1 {
     text-align: center;
     color: white;
 }
 
 .container {
-    text-align:center;
+    text-align: center;
     margin-top: 30px;
     padding: 10px;
-    width:100%;
-    color:white;  
+    width: 100%;
+    color: white;
 }
 
-.input{
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
+.input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 20px;
-    width:50%;
+    width: 50%;
     border-radius: 20px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.15)0% ,rgba(0,0,0,0.0)100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.0)100%);
     border: 1px solid white;
     font-size: 20px;
     padding: 8px 5px 5px;
 }
+
 .input-label {
-    width:100%;
+    width: 100%;
     position: absolute;
-    top: -20px; /* Ajuste o valor para posicionar o texto verticalmente */
-    left: 10px; /* Ajuste o valor para posicionar o texto horizontalmente */
+    top: -20px;
+    /* Ajuste o valor para posicionar o texto verticalmente */
+    left: 10px;
+    /* Ajuste o valor para posicionar o texto horizontalmente */
     font-size: 14px;
     color: #888;
 }
+
 .container input:focus {
-    background-color: rgba(0,0,0,0.15);   
+    background-color: rgba(0, 0, 0, 0.15);
 }
+
 .input-field {
     padding: 5px;
 }
-.buttons{
-    display:flex;
+
+.buttons {
+    display: flex;
     justify-content: space-between;
 }
-.cancelar_button{
+
+.cancelar_button {
     order: 1;
     margin: 20px;
     border-radius: 20px;
@@ -71,11 +79,12 @@ h1{
     background-color: rgba(175, 92, 79, 0.60);
     border: 1px solid white;
     color: white;
-    cursor:pointer;
-    
+    cursor: pointer;
+
     text-decoration: none;
 }
-.cadastrar_button{
+
+.cadastrar_button {
     order: 2;
     margin: 20px;
     border-radius: 20px;
@@ -86,13 +95,28 @@ h1{
     background-color: rgba(175, 92, 79, 0.60);
     border: 1px solid white;
     color: white;
-    cursor:pointer;
+    cursor: pointer;
+    text-align: center;
 }
 
-button:hover{
-    background-color:#974f44;
+.buttons>a {
+    text-align: center;
+    text-decoration: none;
+    padding: 12px;
 }
 
-button:active{
-    background-color:#6d3a32;
+.buttons>a:hover {
+    background-color: #974f44;
+}
+
+.buttons>a:active {
+    background-color: #974f44;
+}
+
+button:hover {
+    background-color: #974f44;
+}
+
+button:active {
+    background-color: #6d3a32;
 }
