@@ -1,11 +1,34 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema bomae
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema bomae
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `bomae` DEFAULT CHARACTER SET utf8 ;
+USE `bomae` ;
+
+-- -----------------------------------------------------
+-- Table `bomae`.`Status`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`Status` (
   `idStatus` INT NOT NULL,
   `Descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`idStatus`))
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `bomae`.`Cliente`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`Cliente` (
-  `idCliente` INT NOT NULL,
+  `idCliente` INT NOT NULL AUTO_INCREMENT,
   `Cpf` VARCHAR(14) NULL,
   `Nome` VARCHAR(45) NULL,
   `Dt_nascimento` DATETIME NULL,
@@ -79,7 +102,7 @@ ENGINE = InnoDB;
 -- Table `bomae`.`Forma_pagamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`Forma_pagamento` (
-  `idForma_pagamento` INT NOT NULL,
+  `idForma_pagamento` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(45) NULL,
   `Descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`idForma_pagamento`))
@@ -90,7 +113,7 @@ ENGINE = InnoDB;
 -- Table `bomae`.`Pedido`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`Pedido` (
-  `idPedido` INT NOT NULL,
+  `idPedido` INT NOT NULL AUTO_INCREMENT,
   `Descricao` VARCHAR(45) NULL,
   `ValorTotal` DECIMAL(14) NULL,
   `QtdParcelas` INT NULL,
@@ -171,15 +194,7 @@ CREATE TABLE IF NOT EXISTS `bomae`.`Departamento` (
   `idDepartamento` INT NOT NULL,
   `Nome` VARCHAR(45) NULL,
   `Descricao` VARCHAR(45) NULL,
-  `Usuario_idUsuario` INT NOT NULL,
-  `Usuario_Status_idStatus` INT NOT NULL,
-  PRIMARY KEY (`idDepartamento`, `Usuario_idUsuario`, `Usuario_Status_idStatus`),
-  INDEX `fk_Departamento_Usuario1_idx` (`Usuario_idUsuario` ASC, `Usuario_Status_idStatus` ASC) VISIBLE,
-  CONSTRAINT `fk_Departamento_Usuario1`
-    FOREIGN KEY (`Usuario_idUsuario` , `Usuario_Status_idStatus`)
-    REFERENCES `bomae`.`Usuario` (`idUsuario` , `Status_idStatus`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idDepartamento`))
 ENGINE = InnoDB;
 
 
@@ -211,25 +226,10 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bomae`.`NFE`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bomae`.`NFE` (
-  `idNFE` INT NOT NULL,
-  `NumNFE` VARCHAR(45) NULL,
-  `Dt_emissao` DATETIME NULL,
-  `TipoNota` VARCHAR(45) NULL,
-  `IPI` DECIMAL(14) NULL,
-  `ICMS` DECIMAL(14) NULL,
-  `Cliente_idCliente` INT NOT NULL,
-  PRIMARY KEY (`idNFE`, `Cliente_idCliente`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `bomae`.`Produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`Produto` (
-  `idProduto` INT NOT NULL,
+  `idProduto` INT NOT NULL AUTO_INCREMENT,
   `Descricao` VARCHAR(45) NULL,
   `Valor` DECIMAL(14) NULL,
   `Cor` VARCHAR(45) NULL,
@@ -239,13 +239,10 @@ CREATE TABLE IF NOT EXISTS `bomae`.`Produto` (
   `Estoque_idProduto` INT NOT NULL,
   `Status_idStatus` INT NOT NULL,
   `Fornecedor_idFornecedor` INT NOT NULL,
-  `NFE_idNFE` INT NOT NULL,
-  `NFE_Cliente_idCliente` INT NOT NULL,
-  PRIMARY KEY (`idProduto`, `Estoque_idProduto`, `Status_idStatus`, `Fornecedor_idFornecedor`, `NFE_idNFE`, `NFE_Cliente_idCliente`),
+  PRIMARY KEY (`idProduto`, `Estoque_idProduto`, `Status_idStatus`, `Fornecedor_idFornecedor`),
   INDEX `fk_Produto_Estoque1_idx` (`Estoque_idProduto` ASC) VISIBLE,
   INDEX `fk_Produto_Status1_idx` (`Status_idStatus` ASC) VISIBLE,
   INDEX `fk_Produto_Fornecedor1_idx` (`Fornecedor_idFornecedor` ASC) VISIBLE,
-  INDEX `fk_Produto_NFE1_idx` (`NFE_idNFE` ASC, `NFE_Cliente_idCliente` ASC) VISIBLE,
   CONSTRAINT `fk_Produto_Estoque1`
     FOREIGN KEY (`Estoque_idProduto`)
     REFERENCES `bomae`.`Estoque` (`idProduto`)
@@ -260,11 +257,6 @@ CREATE TABLE IF NOT EXISTS `bomae`.`Produto` (
     FOREIGN KEY (`Fornecedor_idFornecedor`)
     REFERENCES `bomae`.`Fornecedor` (`idFornecedor`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Produto_NFE1`
-    FOREIGN KEY (`NFE_idNFE` , `NFE_Cliente_idCliente`)
-    REFERENCES `bomae`.`NFE` (`idNFE` , `Cliente_idCliente`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -273,7 +265,6 @@ ENGINE = InnoDB;
 -- Table `bomae`.`Pedido_Produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`Pedido_Produto` (
-  `idPedido_Produto` INT NOT NULL,
   `Qtd_produto` INT NULL,
   `Pedido_idPedido` INT NOT NULL,
   `Pedido_Cliente_idCliente` INT NOT NULL,
@@ -282,12 +273,9 @@ CREATE TABLE IF NOT EXISTS `bomae`.`Pedido_Produto` (
   `Pedido_Orcamento_Status_idStatus` INT NOT NULL,
   `Pedido_Status_idStatus` INT NOT NULL,
   `Produto_idProduto` INT NOT NULL,
-  `NFE_idNFE` INT NOT NULL,
-  `NFE_Cliente_idCliente` INT NOT NULL,
-  PRIMARY KEY (`idPedido_Produto`, `Pedido_idPedido`, `Pedido_Cliente_idCliente`, `Pedido_Orcamento_idOrcamento`, `Pedido_Orcamento_Cliente_idCliente`, `Pedido_Orcamento_Status_idStatus`, `Pedido_Status_idStatus`, `Produto_idProduto`, `NFE_idNFE`, `NFE_Cliente_idCliente`),
+  PRIMARY KEY (`Pedido_idPedido`, `Pedido_Cliente_idCliente`, `Pedido_Orcamento_idOrcamento`, `Pedido_Orcamento_Cliente_idCliente`, `Pedido_Orcamento_Status_idStatus`, `Pedido_Status_idStatus`, `Produto_idProduto`),
   INDEX `fk_Pedido_Produto_Pedido1_idx` (`Pedido_idPedido` ASC, `Pedido_Cliente_idCliente` ASC, `Pedido_Orcamento_idOrcamento` ASC, `Pedido_Orcamento_Cliente_idCliente` ASC, `Pedido_Orcamento_Status_idStatus` ASC, `Pedido_Status_idStatus` ASC) VISIBLE,
   INDEX `fk_Pedido_Produto_Produto1_idx` (`Produto_idProduto` ASC) VISIBLE,
-  INDEX `fk_Pedido_Produto_NFE1_idx` (`NFE_idNFE` ASC, `NFE_Cliente_idCliente` ASC) VISIBLE,
   CONSTRAINT `fk_Pedido_Produto_Pedido1`
     FOREIGN KEY (`Pedido_idPedido` , `Pedido_Cliente_idCliente` , `Pedido_Orcamento_idOrcamento` , `Pedido_Orcamento_Cliente_idCliente` , `Pedido_Orcamento_Status_idStatus` , `Pedido_Status_idStatus`)
     REFERENCES `bomae`.`Pedido` (`idPedido` , `Cliente_idCliente` , `Orcamento_idOrcamento` , `Orcamento_Cliente_idCliente` , `Orcamento_Status_idStatus` , `Status_idStatus`)
@@ -296,11 +284,6 @@ CREATE TABLE IF NOT EXISTS `bomae`.`Pedido_Produto` (
   CONSTRAINT `fk_Pedido_Produto_Produto1`
     FOREIGN KEY (`Produto_idProduto`)
     REFERENCES `bomae`.`Produto` (`idProduto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pedido_Produto_NFE1`
-    FOREIGN KEY (`NFE_idNFE` , `NFE_Cliente_idCliente`)
-    REFERENCES `bomae`.`NFE` (`idNFE` , `Cliente_idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -326,6 +309,31 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `bomae`.`NFE`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bomae`.`NFE` (
+  `idNFE` INT NOT NULL,
+  `NumNFE` VARCHAR(45) NULL,
+  `Dt_emissao` DATETIME NULL,
+  `TipoNota` VARCHAR(45) NULL,
+  `IPI` DECIMAL(14) NULL,
+  `ICMS` DECIMAL(14) NULL,
+  `Cliente_idCliente` INT NOT NULL,
+  `Pedido_Produto_idPedido_Produto` INT NOT NULL,
+  `Pedido_Produto_Pedido_Orcamento_idOrcamento` INT NOT NULL,
+  `Pedido_Produto_Pedido_Status_idStatus` INT NOT NULL,
+  `Pedido_Produto_Produto_idProduto` INT NOT NULL,
+  PRIMARY KEY (`idNFE`, `Cliente_idCliente`, `Pedido_Produto_Pedido_Orcamento_idOrcamento`, `Pedido_Produto_Pedido_Status_idStatus`, `Pedido_Produto_Produto_idProduto`),
+  INDEX `fk_NFE_Pedido_Produto1_idx` (`Pedido_Produto_Pedido_Orcamento_idOrcamento` ASC, `Pedido_Produto_Pedido_Status_idStatus` ASC, `Pedido_Produto_Produto_idProduto` ASC) VISIBLE,
+  CONSTRAINT `fk_NFE_Pedido_Produto1`
+    FOREIGN KEY (`Pedido_Produto_Pedido_Orcamento_idOrcamento` , `Pedido_Produto_Pedido_Status_idStatus` , `Pedido_Produto_Produto_idProduto`)
+    REFERENCES `bomae`.`Pedido_Produto` (`Pedido_Orcamento_idOrcamento` , `Pedido_Status_idStatus` , `Produto_idProduto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `bomae`.`LOG`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bomae`.`LOG` (
@@ -335,6 +343,29 @@ CREATE TABLE IF NOT EXISTS `bomae`.`LOG` (
   `Data` DATETIME NULL,
   `Descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`idLOG`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bomae`.`Usuario_departamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bomae`.`Usuario_departamento` (
+  `Usuario_idUsuario` INT NOT NULL,
+  `Usuario_Status_idStatus` INT NOT NULL,
+  `Departamento_idDepartamento` INT NOT NULL,
+  PRIMARY KEY (`Usuario_idUsuario`, `Usuario_Status_idStatus`, `Departamento_idDepartamento`),
+  INDEX `fk_Usuario_departamento_Usuario1_idx` (`Usuario_idUsuario` ASC, `Usuario_Status_idStatus` ASC) VISIBLE,
+  INDEX `fk_Usuario_departamento_Departamento1_idx` (`Departamento_idDepartamento` ASC) VISIBLE,
+  CONSTRAINT `fk_Usuario_departamento_Usuario1`
+    FOREIGN KEY (`Usuario_idUsuario` , `Usuario_Status_idStatus`)
+    REFERENCES `bomae`.`Usuario` (`idUsuario` , `Status_idStatus`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Usuario_departamento_Departamento1`
+    FOREIGN KEY (`Departamento_idDepartamento`)
+    REFERENCES `bomae`.`Departamento` (`idDepartamento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
