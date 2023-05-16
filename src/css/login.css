@@ -6,10 +6,6 @@
     padding:0;
     box-sizing: border-box;
     font-family: 'Bebas Neue', 'poppins';
-   
-
-    
-
 }
 
 .root{
@@ -17,11 +13,12 @@
     --red:    #AF5C4F;
     --white:  #ffffff;
     --black:  #000000;
+    
 }
 
 body{
 
-    background: linear-gradient(180deg, #EBD38A 0% ,#af5c4f 100%);
+    background: linear-gradient(180deg, var(--yellow) 0% ,var(--red) 100%);
     background-repeat:no-repeat;
     min-height: 100vh;
     
@@ -42,10 +39,7 @@ main{
     width: 100%;
     max-width: 500px;
     min-height: 100vh;
-    color: white;
-    
-    /* background-color: red; */
- 
+    color: var(--white);
 }
         
 .login_label{
@@ -73,12 +67,9 @@ main{
     width: 353px;
     height: 60px;
     background: linear-gradient(180deg, rgba(0,0,0,0.15)0% ,rgba(0,0,0,0.0)100%);
-    border: 1px solid white;
+    border: 1px solid var(--white);
     font-size: 20px;
     padding:20px;
-    
-
-
 }
 
 .login_label span{
@@ -125,13 +116,13 @@ letter-spacing: 0.4px;
     appearance:none;
     width:20px;
     height:20px;
-    background-color:#FFFFFF;
+    background-color:var(--white);
     margin-right: 8px;
     border-radius:3px;
 }
 
 .input-checkbox:checked{
-    background-color:#AF5C4F;
+    background-color:var(--yellow);
 }
 
 .input-checkbox:checked::after{
@@ -139,7 +130,7 @@ letter-spacing: 0.4px;
     display:block;
     width:5px;
     height: 10px;
-    border:3px solid white;
+    border:3px solid var(--white);
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
     margin:2px 6px;
@@ -156,8 +147,8 @@ letter-spacing: 0.4px;
     padding:20px;
     letter-spacing: 0.6px;
     background-color: rgba(175, 92, 79, 0.60);
-    border: 1px solid white;
-    color: white;
+    border: 1px solid var(--white);
+    color: var(--white);
     cursor:pointer;
     
 
@@ -165,7 +156,7 @@ letter-spacing: 0.4px;
 
 .login_button:hover{
     
-    background-color:#AF5C4F;
+    background-color:var(--yellow);
     
 }
 
@@ -193,25 +184,22 @@ letter-spacing: 0.4px;
 .wallpaper{
 
     width:100%;
-    border-left: 6px solid black;
+    border-left: 6px solid var(--black);
     /* background-color: red; */
     background-image: url('../images/fundobomaePE.png');
     background-size:cover;
     background-position: center;
     display:block;
-    background-color: black;
+    background-color: var(--black);
     transition-timing-function:ease-in-out;
     transition-duration:2s;
-     
-    
 }
+
 @media screen and (max-width:880px){
     selection, .login{
         margin-left:20px;
-        width:100%;
-    
+        width:100%;    
     }
-
 }
 
     
